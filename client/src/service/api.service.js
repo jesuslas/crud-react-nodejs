@@ -9,7 +9,7 @@ store.subscribe(() => {
 });
 console.log("user", user);
 export const signIn = (user, password) => {
-  console.log('baseUrl',baseUrl);
+  console.log("baseUrl", baseUrl);
   return axios.post(`${baseUrl}/auth/login`, {
     method: "POST",
     body: { user, password }
@@ -33,7 +33,7 @@ export const addTickets = (ticket, userId) => {
     body: {
       ticket_pedido: "default",
       userId,
-      status:"Created",
+      status: "Created",
       ...ticket
     }
   });
@@ -55,6 +55,8 @@ export const addUser = user => {
       roleId: 1,
       email: "co@co.com",
       password: "123",
+      createdAt: new Date(),
+      updatedAt: new Date(),
       ...user
     }
   });

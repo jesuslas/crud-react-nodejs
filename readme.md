@@ -36,7 +36,7 @@ npm run composer
 Aqui se corre se agregan los migration y se crean los datos de prueba en la bd.
 
 ```bash  
-npm run migrate
+npm run db:init
 ```
 
 ## los puertos expuestos en el escenario con composer son: 
@@ -47,29 +47,24 @@ npm run migrate
 
 
 ## comando utilis
-
+```bash
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'
 docker logs mysql | tail -n 2
 mysql -uroot -pmanager -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'"
-
+```
 ### crear migration. Este comando se corre desde el container del api
 ```bash 
 ./node_modules/.bin/sequelize migration:generate --env default --name create-users-table
 ```
-### ejecutamos la migration. Este comando se debe correr desde la raiz del proyecto
+### Ejecutamos la migration. Este comando se debe correr desde la raiz del proyecto
 ```bash 
 npm run migrate
 ```
-### se crear los seeders. Este comando se corre desde dentro del container del api
+### Se crear los seeders. Este comando se corre desde dentro del container del api
 ```bash 
 ./node_modules/.bin/sequelize seed:generate --name demo
 ```
-### se corren los seeders. Este comando se debe correr desde la raiz del proyecto
+### Se corren los seeders. Este comando se debe correr desde la raiz del proyecto
 ```bash 
 npm run migrate:seed
 ```
-### Para crear las tablas y los seeder en un solo comando correr. Este comando se debe correr desde la raiz del proyecto
-```bash 
-npm run db:init
-```
-

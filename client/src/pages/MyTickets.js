@@ -33,7 +33,7 @@ const MyTickets = props => {
     cell: null,
     row: null
   });
-  console.log('editCellRow',editCellRow);
+  console.log("editCellRow", editCellRow);
   const options = {
     display: false
   };
@@ -89,15 +89,14 @@ const MyTickets = props => {
     {
       name: "Status",
       options: {
-        customBodyRender:
-          customBodyRender(renderSelectStatus, {
-            tick,
-            setTick,
-            editCellRow,
-            setEditCellRow,
-            edit: updateTicket,
-            colunm: "status"
-          })
+        customBodyRender: customBodyRender(renderSelectStatus, {
+          tick,
+          setTick,
+          editCellRow,
+          setEditCellRow,
+          edit: updateTicket,
+          colunm: "status"
+        })
       }
     }
   ];
@@ -181,10 +180,10 @@ const MyTickets = props => {
   };
   useEffect(
     () => {
-      console.log('editCellRow',editCellRow);
+      console.log("editCellRow", editCellRow);
       getData();
     },
-    [editCellRow,tick]
+    [editCellRow, tick]
   );
   return (
     <MUIDataTable

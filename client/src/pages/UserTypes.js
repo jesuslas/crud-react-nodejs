@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -15,12 +15,6 @@ import {
   getAllUserTypes
 } from "../service/api.service";
 const UsersTypes = props => {
-  const {
-    user: {
-      user_types: { name: role },
-      id
-    }
-  } = props || {};
   const { userId, tick, setTick, isAdmin } = props;
   const [userTypes, setUserTypes] = useState([]);
   const [editCellRow, setEditCellRow] = useState({
@@ -106,16 +100,18 @@ const UsersTypes = props => {
   };
   const getData = async () => {
     try {
-      const params = role !== "admin" ? id : "";
       const { data } = await getAllUserTypes();
       setUserTypes(data);
     } catch (error) {
       console.log("error", error);
     }
   };
-  useEffect(() => {
-    getData();
-  }, [tick]);
+  useEffect(
+    () => {
+      getData();
+    },
+    [tick]
+  );
   return (
     <MUIDataTable
       title={"Roles"}

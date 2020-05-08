@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,9 +18,7 @@ const Dashboard = props => {
 
   return (
     <Container maxWidth="md" className={classes.myBody}>
-      <Tabs
-        {...{  userId: id, tick, setTick, isAdmin,...props }}
-      />
+      <Tabs {...{ userId: id, tick, setTick, isAdmin, ...props }} />
       User Connected: {name}
     </Container>
   );

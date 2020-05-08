@@ -25,7 +25,7 @@ const Users = props => {
       id
     }
   } = props || {};
-  const {userId, tick, setTick, isAdmin } = props;
+  const { userId, tick, setTick, isAdmin } = props;
   const [userTypes, setUserTypes] = useState([]);
   const [users, setUsers] = useState([]);
   const [editCellRow, setEditCellRow] = useState({
@@ -178,15 +178,18 @@ const Users = props => {
       const params = role !== "admin" ? id : "";
       const { data } = await getAllUserTypes();
       const { data: users } = await getAllUsers(params);
-      setUsers(users)
+      setUsers(users);
       setUserTypes(data);
     } catch (error) {
       console.log("error", error);
     }
   };
-  useEffect(() => {
-    getData();
-  }, [role,tick]);
+  useEffect(
+    () => {
+      getData();
+    },
+    [role, tick]
+  );
   return (
     <MUIDataTable
       title={"Users"}

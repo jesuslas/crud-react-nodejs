@@ -111,7 +111,10 @@ export const customBodyRender = (render, props) => (value, tableMeta) => {
           value
         )
       ) : (
-        <ClickAwayListener onClickAway={() => onSave()} mouseEvent={"onMouseDown"}>
+        <ClickAwayListener
+          onClickAway={() => onSave()}
+          mouseEvent={"onMouseDown"}
+        >
           {render({ ...props, value, onSave, userId })}
         </ClickAwayListener>
       )}
