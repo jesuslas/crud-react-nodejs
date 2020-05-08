@@ -41,7 +41,6 @@ class Users {
   async create(req, res) {
     try {
       const { body } = req.body;
-      console.log('body',body);
       const { Users } = this.models;
       const data = await Users.create(body);
       ok(res)(data);

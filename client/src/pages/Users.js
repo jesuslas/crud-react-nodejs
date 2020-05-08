@@ -173,7 +173,7 @@ const Users = props => {
       }
     }
   };
-  const getUserTypes = async () => {
+  const getData = async () => {
     try {
       const params = role !== "admin" ? id : "";
       const { data } = await getAllUserTypes();
@@ -185,7 +185,7 @@ const Users = props => {
     }
   };
   useEffect(() => {
-    getUserTypes();
+    getData();
   }, [role,tick]);
   return (
     <MUIDataTable

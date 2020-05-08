@@ -10,15 +10,17 @@ class Tickets {
     try {
       const { id } = req.params;
       const { userId } = req.query;
-      const { Tickets,Users } = this.models;
-      const Ticket = await Tickets.findAll({ ...(id && { where: { id } }) ,
-      ...(userId && { where: { userId } }),
-      include: [
-        {
-          model: Users,
-          as: "user",
-        },
-      ]});
+      const { Tickets, Users } = this.models;
+      const Ticket = await Tickets.findAll({
+        ...(id && { where: { id } }),
+        ...(userId && { where: { userId } }),
+        include: [
+          {
+            model: Users,
+            as: "user",
+          },
+        ],
+      });
       ok(res)(Ticket);
     } catch (error) {
       fail(res)(error);
@@ -41,7 +43,7 @@ class Tickets {
   async create(req, res) {
     try {
       const { body } = req.body;
-      console.log('body',body);
+      console.log("body", body);
       const { Tickets } = this.models;
       const data = await Tickets.create(body);
       ok(res)(data);

@@ -86,6 +86,6 @@ export const updateUser = (userId, properties) => {
 export const updateUserTypes = (userTypeId, properties) => {
   return axios.patch(`${baseUrl}/roles/${userTypeId}`, {
     method: "PATCH",
-    body: JSON.stringify(properties)
+    body: properties
   });
 };

@@ -19,10 +19,10 @@ class Role {
   async edit(req, res) {
     try {
       const { id } = req.params;
-      const { ...update } = req.body;
+      const { body } = req.body;
       const { Role } = this.models;
-      const [, [data]] = await Users.update(
-        { ...update },
+      const [, [data]] = await Role.update(
+        { ...body },
         { where: { id }, individualHooks: true }
       );
       ok(res)(data);
@@ -32,7 +32,7 @@ class Role {
   }
   async create(req, res) {
     try {
-      const { ...body } = req.body;
+      const { body } = req.body;
       const { Role } = this.models;
       const data = await Role.create(body);
       ok(res)(data);

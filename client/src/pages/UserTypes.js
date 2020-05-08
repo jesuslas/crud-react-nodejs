@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -11,10 +11,18 @@ import {
 import {
   addUserTypes,
   deleteUserTypes,
-  updateUserTypes
+  updateUserTypes,
+  getAllUserTypes
 } from "../service/api.service";
 const UsersTypes = props => {
-  const { usertypes, userId, tick, setTick, isAdmin } = props;
+  const {
+    user: {
+      user_types: { name: role },
+      id
+    }
+  } = props || {};
+  const { userId, tick, setTick, isAdmin } = props;
+  const [userTypes, setUserTypes] = useState([]);
   const [editCellRow, setEditCellRow] = useState({
     cell: null,
     row: null
@@ -37,7 +45,7 @@ const UsersTypes = props => {
       }
     }
   ];
-  const data = (usertypes || []).map(({ id, name }) => [id, name]);
+  const data = (userTypes || []).map(({ id, name }) => [id, name]);
 
   const classes = useStyles();
   const Toolbar = () => {
@@ -84,7 +92,7 @@ const UsersTypes = props => {
     onRowsDelete: ({ data }) => {
       let usertypesId = [];
       data.forEach(({ index }) => {
-        usertypesId = [...usertypesId, usertypes[index].id];
+        usertypesId = [...usertypesId, userTypes[index].id];
       });
       const results = usertypesId.reduce(async (allPromise, usertype) => {
         const allResults = await allPromise;
@@ -96,7 +104,18 @@ const UsersTypes = props => {
       }
     }
   };
-
+  const getData = async () => {
+    try {
+      const params = role !== "admin" ? id : "";
+      const { data } = await getAllUserTypes();
+      setUserTypes(data);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, [tick]);
   return (
     <MUIDataTable
       title={"Roles"}
