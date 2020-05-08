@@ -10,10 +10,10 @@ La aplicación consta de un Login para autenticar los usuarios, luego al ingresa
 - El usuario con role user solo puede modificar el estatus de sus propios tickets
 
 <p align="center">
-  <img  src="https://raw.githubusercontent.com/jesuslas/crud-react-laravel/master/client/public/login.PNG">
+  <img  src="https://raw.githubusercontent.com/jesuslas/crud-react-nodejs/master/client/public/login.PNG">
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jesuslas/crud-react-laravel/master/client/public/dashboard.PNG">
+  <img src="https://raw.githubusercontent.com/jesuslas/crud-react-nodejs/master/client/public/dashboard.PNG">
 </p>
 
 ### Requisitos previos:
@@ -33,10 +33,10 @@ Aqui se construyen las imagenes con los dockerfile para el fron y el back.
 npm run composer
 ```
 ### Se inicializa el Api con la data y las tablas de la db
-Aqui se corre el autoload de composer se agregan los migration y se crean los datos de prueba en la bd.
+Aqui se corre se agregan los migration y se crean los datos de prueba en la bd.
 
 ```bash  
-
+npm run migrate
 ```
 
 ## los puertos expuestos en el escenario con composer son: 
@@ -45,41 +45,31 @@ Aqui se corre el autoload de composer se agregan los migration y se crean los da
 - Para el CLIENT localhost:4444
 
 
-## Sen construyen los contenedores para el escenario manualmente
-### Estos conmandos estan construidos para ser ejecutados en windows pront
-### crear container para mysql
-```bash   
-docker run --name mysql-db -p 3307:3306 --memory=512MB --memory-swap=512MB -e MYSQL_ROOT_PASSWORD=manager -e MYSQL_DATABASE=laravel -d mysql --default-authentication-plugin=mysql_native_password
-```
 
-### crear container con el laravel api
-```bash  
-
-```
-### crear container con el laravel client
-```bash  
-
-```
 ## comando utilis
 
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'
 docker logs mysql | tail -n 2
 mysql -uroot -pmanager -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'"
 
-### arrancar servidor nodejs 
-npm start
-
-### crear migration
+### crear migration. Este comando se corre desde el container del api
+```bash 
 ./node_modules/.bin/sequelize migration:generate --env default --name create-users-table
-./node_modules/.bin/sequelize migration:generate --env default --name create-role-table
-
-### ejecutamos la migration
+```
+### ejecutamos la migration. Este comando se debe correr desde la raiz del proyecto
+```bash 
 npm run migrate
-
-### se crear los seeders
-
-
-### se crean los seeders
-
-
+```
+### se crear los seeders. Este comando se corre desde dentro del container del api
+```bash 
+./node_modules/.bin/sequelize seed:generate --name demo
+```
+### se corren los seeders. Este comando se debe correr desde la raiz del proyecto
+```bash 
+npm run migrate:seed
+```
+### Para crear las tablas y los seeder en un solo comando correr. Este comando se debe correr desde la raiz del proyecto
+```bash 
+npm run db:init
+```
 

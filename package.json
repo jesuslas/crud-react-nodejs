@@ -6,6 +6,8 @@
   "scripts": {
     "composer": "docker-compose build && docker-compose up -d",
     "migrate": "docker exec -it kp ./node_modules/.bin/sequelize db:migrate --env=default",
+    "migrate:seed": "docker exec -it kp ./node_modules/.bin/sequelize db:seed:all --env=default",
+    "db:init":"npm run migrate && npm run migrate:seed",
     "create:load:class": "",
     "create:db": "",
     "create:seed": "",
