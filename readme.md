@@ -13,6 +13,9 @@ La aplicación consta de un Login para autenticar los usuarios, luego al ingresa
   <img  src="https://raw.githubusercontent.com/jesuslas/crud-react-nodejs/master/client/public/login.PNG">
 </p>
 <p align="center">
+  <img src="https://raw.githubusercontent.com/jesuslas/crud-react-nodejs/master/client/public/signup.PNG">
+</p>
+<p align="center">
   <img src="https://raw.githubusercontent.com/jesuslas/crud-react-nodejs/master/client/public/dashboard.PNG">
 </p>
 
