@@ -1,0 +1,51 @@
+{
+  "name": "api-landing",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./www",
+    "dev": "nodemon ./www",
+    "debug": "DEBUG=myapp:* npm start",
+    "lint": "eslint ./app/**",
+    "lint:fix": "eslint ./app/** --fix",
+    "test": "mocha --exit"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-multiparty": "^2.2.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv-safe": "^6.1.0",
+    "express": "~4.16.0",
+    "express-jwt": "^5.3.1",
+    "http-errors": "~1.6.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "morgan": "~1.9.0",
+    "multiparty": "^4.2.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.7"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^5.15.3",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^1.3.1",
+    "mocha": "^7.1.1",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.5",
+    "sequelize-cli": "^5.5.1",
+    "supertest": "^4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  }
+}

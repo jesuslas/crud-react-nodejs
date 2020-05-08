@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+const debug = require('debug')('api:server')
+const config = require("./config/default");
+
+const port = config.app.port
+
+/**
+ * Create HTTP server.
+ */
+
+
+const db = require("./db")();
+  db.sequelize
+    .authenticate()
+    .then(() => {
+
+      const app = require("./app")(db.models);
+      app.listen(port, () => {
+        console.log("Aplication running in port", port);
+        console.log("Started!");
+      });
+
+      console.log("Connection to database, has been established successfully.");
+      return app;
+    })
+    .catch(err => {
+      console.log('----------------------------------------');
+      console.error("Unable to connect to the database:", err);
+      process.exit(0);
+    });
+

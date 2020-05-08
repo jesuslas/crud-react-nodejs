@@ -1,0 +1,26 @@
+{
+  "name": "app-tickets",
+  "version": "1.0.0",
+  "description": "App react nodejs mysql",
+  "main": "index.js",
+  "scripts": {
+    "composer": "docker-compose build && docker-compose up -d",
+    "migrate": "docker exec -it kp ./node_modules/.bin/sequelize db:migrate --env=default",
+    "create:load:class": "",
+    "create:db": "",
+    "create:seed": "",
+    "lint:api": "docker exec -it kp npm ru lint:fix",
+    "api:init":"npm run create:load:class && npm run create:db && npm run create:seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesuslas/crud-react-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jesuslas/crud-react-nodejs/issues"
+  },
+  "homepage": "https://github.com/jesuslas/crud-react-nodejs#readme"
+}
