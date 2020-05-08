@@ -9,6 +9,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return await queryInterface.removeColumn("category", "iconClassName");
+    return await queryInterface.removeColumn("users", "password");
   }
 };

@@ -15,11 +15,19 @@ import {
   addUser,
   deleteUser,
   getAllUserTypes,
-  updateUser
+  updateUser,
+  getAllUsers
 } from "../service/api.service";
 const Users = props => {
-  const { users, userId, tick, setTick, isAdmin } = props;
+  const {
+    user: {
+      user_types: { name: role },
+      id
+    }
+  } = props || {};
+  const {userId, tick, setTick, isAdmin } = props;
   const [userTypes, setUserTypes] = useState([]);
+  const [users, setUsers] = useState([]);
   const [editCellRow, setEditCellRow] = useState({
     cell: null,
     row: null
@@ -91,7 +99,7 @@ const Users = props => {
             editCellRow,
             setEditCellRow,
             edit: updateUser,
-            colunm: "userTypes"
+            colunm: "roleId"
           })
       }
     }
@@ -167,7 +175,10 @@ const Users = props => {
   };
   const getUserTypes = async () => {
     try {
+      const params = role !== "admin" ? id : "";
       const { data } = await getAllUserTypes();
+      const { data: users } = await getAllUsers(params);
+      setUsers(users)
       setUserTypes(data);
     } catch (error) {
       console.log("error", error);
@@ -175,7 +186,7 @@ const Users = props => {
   };
   useEffect(() => {
     getUserTypes();
-  }, []);
+  }, [role,tick]);
   return (
     <MUIDataTable
       title={"Users"}

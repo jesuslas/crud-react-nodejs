@@ -20,16 +20,14 @@ const Dashboard = props => {
   const isAdmin = role === "admin";
   const classes = useStyles();
   const [tickets, setTickets] = useState([]);
-  const [users, setUsers] = useState([]);
   const [usertypes, setUserTypes] = useState([]);
   const [tick, setTick] = useState(0);
   const getTickets = async params => {
     try {
-      const { data: ticks } = await getAllTickets(params);
-      const { data: users } = await getAllUsers(params);
-      const { data: usertypes } = await getAllUserTypes(params);
-      setTickets(ticks);
-      setUsers(users);
+      // const { data: ticks } = await getAllTickets(params);
+      // const { data: users } = await getAllUsers(params);
+      // const { data: usertypes } = await getAllUserTypes(params);
+      // setTickets(ticks);
       setUserTypes(usertypes);
     } catch (error) {
       console.log("error", error);
@@ -46,7 +44,7 @@ const Dashboard = props => {
   return (
     <Container maxWidth="md" className={classes.myBody}>
       <Tabs
-        {...{ tickets, users, usertypes, userId: id, tick, setTick, isAdmin }}
+        {...{ tickets, usertypes, userId: id, tick, setTick, isAdmin,...props }}
       />
       User Connected: {name}
     </Container>

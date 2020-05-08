@@ -35,6 +35,7 @@ module.exports = (models) => {
   apiRouter.use("/auth", require("./auth")(models));
   apiRouter.use("/users", require("./users")(models));
   apiRouter.use("/tickets", require("./tickets")(models));
+  apiRouter.use("/roles", require("./roles")(models));
 
   /* GET home page. */
   router.get("/", function (req, res, next) {

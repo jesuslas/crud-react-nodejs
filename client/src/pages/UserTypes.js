@@ -13,7 +13,7 @@ import {
   deleteUserTypes,
   updateUserTypes
 } from "../service/api.service";
-const Users = props => {
+const UsersTypes = props => {
   const { usertypes, userId, tick, setTick, isAdmin } = props;
   const [editCellRow, setEditCellRow] = useState({
     cell: null,
@@ -111,4 +111,4 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer"
   }
 }));
-export default withRouter(Users);
+export default withRouter(UsersTypes);

@@ -1,6 +1,6 @@
 const { ok, fail, accepted } = require("../commons/responses");
 
-class Users {
+class Role {
   models = null;
   constructor(models) {
     this.models = models;
@@ -9,17 +9,9 @@ class Users {
   async get(req, res) {
     try {
       const { id } = req.params;
-      const { Users, Role } = this.models;
-      const users = await Users.findAll({
-        ...(id && { where: { id } }),
-        include: [
-          {
-            model: Role,
-            as: "user_types",
-          },
-        ],
-      });
-      ok(res)(users);
+      const { Role } = this.models;
+      const role = await Role.findAll({ ...(id && { where: { id } }) });
+      ok(res)(role);
     } catch (error) {
       fail(res)(error);
     }
@@ -27,10 +19,10 @@ class Users {
   async edit(req, res) {
     try {
       const { id } = req.params;
-      const { body } = req.body;
-      const { Users } = this.models;
+      const { ...update } = req.body;
+      const { Role } = this.models;
       const [, [data]] = await Users.update(
-        { ...body },
+        { ...update },
         { where: { id }, individualHooks: true }
       );
       ok(res)(data);
@@ -40,10 +32,9 @@ class Users {
   }
   async create(req, res) {
     try {
-      const { body } = req.body;
-      console.log('body',body);
-      const { Users } = this.models;
-      const data = await Users.create(body);
+      const { ...body } = req.body;
+      const { Role } = this.models;
+      const data = await Role.create(body);
       ok(res)(data);
     } catch (error) {
       fail(res)(error);
@@ -52,8 +43,8 @@ class Users {
   async delete(req, res) {
     try {
       const { id } = req.params;
-      const { Users } = this.models;
-      await Users.destroy({
+      const { Role } = this.models;
+      await Role.destroy({
         where: { id },
         individualHooks: true,
       });
@@ -64,4 +55,4 @@ class Users {
   }
 }
 
-module.exports = (models) => new Users(models);
+module.exports = (models) => new Role(models);

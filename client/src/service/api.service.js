@@ -10,9 +10,9 @@ store.subscribe(() => {
 console.log("user", user);
 export const signIn = (user, password) => {
   console.log('baseUrl',baseUrl);
-  return axios.post(`${baseUrl}/login`, {
+  return axios.post(`${baseUrl}/auth/login`, {
     method: "POST",
-    body: JSON.stringify({ user, password })
+    body: { user, password }
   });
 };
 
@@ -24,45 +24,46 @@ export const getAllUsers = () => {
   return axios.get(`${baseUrl}/users`);
 };
 export const getAllUserTypes = () => {
-  return axios.get(`${baseUrl}/usertypes`);
+  return axios.get(`${baseUrl}/roles`);
 };
 
 export const addTickets = (ticket, userId) => {
   return axios.post(`${baseUrl}/tickets`, {
     method: "POST",
-    body: JSON.stringify({
-      ticketPedido: "default",
+    body: {
+      ticket_pedido: "default",
       userId,
+      status:"Created",
       ...ticket
-    })
+    }
   });
 };
 export const addUserTypes = userType => {
-  return axios.post(`${baseUrl}/usertypes`, {
+  return axios.post(`${baseUrl}/roles`, {
     method: "POST",
-    body: JSON.stringify({
+    body: {
       name: "dafault",
       ...userType
-    })
+    }
   });
 };
 export const addUser = user => {
   return axios.post(`${baseUrl}/users`, {
     method: "POST",
-    body: JSON.stringify({
+    body: {
       name: "default",
-      userTypes: 1,
+      roleId: 1,
       email: "co@co.com",
       password: "123",
       ...user
-    })
+    }
   });
 };
 export const deleteTickets = ticket => {
   return axios.delete(`${baseUrl}/tickets/${ticket}`);
 };
 export const deleteUserTypes = userTypeId => {
-  return axios.delete(`${baseUrl}/usertypes/${userTypeId}`);
+  return axios.delete(`${baseUrl}/roles/${userTypeId}`);
 };
 
 export const deleteUser = userId => {
@@ -72,18 +73,18 @@ export const deleteUser = userId => {
 export const updateTicket = (ticketId, properties) => {
   return axios.patch(`${baseUrl}/tickets/${ticketId}`, {
     method: "PATCH",
-    body: JSON.stringify(properties)
+    body: properties
   });
 };
 
 export const updateUser = (userId, properties) => {
   return axios.patch(`${baseUrl}/users/${userId}`, {
     method: "PATCH",
-    body: JSON.stringify(properties)
+    body: properties
   });
 };
 export const updateUserTypes = (userTypeId, properties) => {
-  return axios.patch(`${baseUrl}/usertypes/${userTypeId}`, {
+  return axios.patch(`${baseUrl}/roles/${userTypeId}`, {
     method: "PATCH",
     body: JSON.stringify(properties)
   });

@@ -15,16 +15,25 @@ import {
   addTickets,
   deleteTickets,
   getAllUsers,
-  updateTicket
+  updateTicket,
+  getAllTickets
 } from "../service/api.service";
 
 const MyTickets = props => {
-  const { tickets, userId, tick, setTick, isAdmin } = props;
+  const {
+    user: {
+      user_types: { name: role },
+      id
+    }
+  } = props || {};
+  const { userId, tick, setTick, isAdmin } = props;
   const [users, setUsers] = useState([]);
+  const [tickets, setTickets] = useState([]);
   const [editCellRow, setEditCellRow] = useState({
     cell: null,
     row: null
   });
+  console.log('editCellRow',editCellRow);
   const options = {
     display: false
   };
@@ -67,7 +76,7 @@ const MyTickets = props => {
             editCellRow,
             setEditCellRow,
             edit: updateTicket,
-            colunm: "ticketPedido"
+            colunm: "ticket_pedido"
           })
       }
     },
@@ -140,7 +149,6 @@ const MyTickets = props => {
     download: false,
     pagination: false,
     onCellClick: (_, { colIndex, rowIndex }) => {
-      console.log("colIndex", colIndex);
       setEditCellRow({ cell: colIndex, row: rowIndex });
     },
     customToolbar: () => <Toolbar />,
@@ -160,9 +168,12 @@ const MyTickets = props => {
       }
     }
   };
-  const getUsers = async () => {
+  const getData = async () => {
     try {
+      const params = role !== "admin" ? id : "";
+      const { data: ticks } = await getAllTickets(params);
       const { data } = await getAllUsers();
+      setTickets(ticks);
       setUsers(data);
     } catch (error) {
       console.log("error", error);
@@ -170,9 +181,10 @@ const MyTickets = props => {
   };
   useEffect(
     () => {
-      getUsers();
+      console.log('editCellRow',editCellRow);
+      getData();
     },
-    [editCellRow]
+    [editCellRow,tick]
   );
   return (
     <MUIDataTable
