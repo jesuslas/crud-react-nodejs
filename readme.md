@@ -3,6 +3,7 @@
 
 ### Descripción de la aplicación
 La aplicación consta de un Login para autenticar los usuarios, luego al ingresar se muestra una tabla dode se administraran todas las funcionalidades de la aplicación. 
+- Permite el auto registro de usuarios. Pero estos no tendran tickets al ingresar, deberan esperar que un admin les agregue tickets 
 - Permite Cear, editar, listar y borrar los usuario de la aplicación 
 - Crear, listar, editar y borrar los tickets 
 - Crear, listar, editar y borrar los roles del 
