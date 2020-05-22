@@ -1,4 +1,4 @@
-const { ok, fail, notFound } = require("../commons/responses");
+const { ok, fail, notFound } = require("../../commons/responses");
 
 class Auth {
   models = null;

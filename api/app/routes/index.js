@@ -32,10 +32,13 @@ module.exports = (models) => {
     })
   ); // for parsing application/x-www-form-urlencoded
 
-  apiRouter.use("/auth", require("./auth")(models));
-  apiRouter.use("/users", require("./users")(models));
+  apiRouter.use("/auth", require("./auth/auth")(models));
+  apiRouter.use("/users", require("./auth/users")(models));
   apiRouter.use("/tickets", require("./tickets")(models));
-  apiRouter.use("/roles", require("./roles")(models));
+  apiRouter.use("/roles", require("./auth/roles")(models));
+  apiRouter.use("/invoiceItemType", require("./invoice/invoiceItemType.route")(models));
+  apiRouter.use("/invoice", require("./invoice/invoice.route")(models));
+  apiRouter.use("/invoiceItem", require("./invoice/invoiceItem.route")(models));
 
   /* GET home page. */
   router.get("/", function (req, res, next) {

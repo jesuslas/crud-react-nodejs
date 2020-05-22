@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import MainTabs from "../components/tabs/TabsAuth";
+import FacturationTabs from "../components/tabs/FacturationTabs";
 
 const Dashboard = props => {
   const {
@@ -16,7 +16,7 @@ const Dashboard = props => {
   const [tick, setTick] = useState(0);
   return (
     <div className={classes.myBody}>
-      <MainTabs {...{ userId: id, tick, setTick, isAdmin, ...props }}/>
+      <FacturationTabs {...{ userId: id, tick, setTick, isAdmin, ...props }}/>
     </div>
   );
 };

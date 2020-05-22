@@ -12,6 +12,7 @@ const created = (res) => (data) => sendResponse(res, 201, data);
 const accepted = (res) => (data) => sendResponse(res, 202, data);
 const nodata = (res) => (data) => sendResponse(res, 204, data);
 const notFound = (res) => (data) => sendResponse(res, 404, data);
+const badRequest = (res) => (data) => sendResponse(res, 400, data);
 const fail = (res) => (error) => {
   console.log("error", error);
   sendResponse(res, 500, error);
@@ -28,4 +29,5 @@ module.exports = {
   fail,
   unAuthorized,
   notImplemented,
+  badRequest
 };

@@ -10,14 +10,15 @@ import {
   renderSelectUser,
   renderSelectTicketName,
   renderSelectStatus
-} from "../components/table/cellCustomRenders";
+} from "../../components/table/cellCustomRenders";
 import {
-  addTickets,
+  addInvoicesItemTypes,
   deleteTickets,
-  getAllUsers,
+  getModel,
+  editModel,
   updateTicket,
   getAllTickets
-} from "../service/api.service";
+} from "../../service/api.service";
 
 const MyTickets = props => {
   const {
@@ -27,86 +28,67 @@ const MyTickets = props => {
     }
   } = props || {};
   const { userId, tick, setTick, isAdmin } = props;
-  const [users, setUsers] = useState([]);
-  const [tickets, setTickets] = useState([]);
+  const [invoiceItemType, setInvoiceItemType] = useState([]);
   const [editCellRow, setEditCellRow] = useState({
     cell: null,
     row: null
   });
-  const options = {
-    display: false
-  };
+  const options = (show = true) =>({
+    display: show
+  });
   const columns = [
     {
-      name: "ticket Id",
-      options: {
-        display: true
-      }
+      name: "Item Type Id",
+      ...options()
     },
     {
-      name: "userId",
-      options
-    },
-    {
-      name: "Assigned to",
-      options: {
-        customBodyRender:
-          isAdmin &&
-          customBodyRender(renderSelectUser, {
-            users,
+        name: "Number",
+        options: {
+          customBodyRender: customBodyRender(renderSelectTicketName, {
             tick,
             setTick,
             editCellRow,
             setEditCellRow,
-            edit: updateTicket,
-            colunm: "userId"
+            edit: editModel("invoiceItemType"),
+            colunm: "number"
           })
-      }
-    },
+        }
+      },
     {
-      name: "Ticket",
-      options: {
-        customBodyRender:
-          isAdmin &&
-          customBodyRender(renderSelectTicketName, {
-            users,
+        name: "Name",
+        options: {
+          customBodyRender: customBodyRender(renderSelectTicketName, {
             tick,
             setTick,
             editCellRow,
             setEditCellRow,
-            edit: updateTicket,
-            colunm: "ticket_pedido"
+            edit: editModel("invoiceItemType"),
+            colunm: "name"
           })
-      }
-    },
+        }
+      },
     {
-      name: "Created At",
-      options: {
-        customBodyRender: value => moment(value).format("LL [Time:] HH:mm")
+        name: "Descrption",
+        options: {
+          customBodyRender: customBodyRender(renderSelectTicketName, {
+            tick,
+            setTick,
+            editCellRow,
+            setEditCellRow,
+            edit: editModel("invoiceItemType"),
+            colunm: "description"
+          })
+        }
       }
-    },
-    {
-      name: "Status",
-      options: {
-        customBodyRender: customBodyRender(renderSelectStatus, {
-          tick,
-          setTick,
-          editCellRow,
-          setEditCellRow,
-          edit: updateTicket,
-          colunm: "status"
-        })
-      }
-    }
   ];
-  const data = (tickets || []).map(
+
+  const data = (invoiceItemType || []).map(
     ({
-      user: { id: userId, name: userName },
-      id: ticketid,
-      ticket_pedido,
-      created_at,
-      status
-    }) => [ticketid, userId, userName, ticket_pedido, created_at, status]
+      id,
+      number,
+      name,
+      description
+    }) => [id, number, name, description]
   );
 
   const classes = useStyles();
@@ -119,7 +101,7 @@ const MyTickets = props => {
               className={classes.icon}
               color="primary"
               onClick={async () => {
-                await addTickets({}, userId);
+                await addInvoicesItemTypes({}, userId);
                 setTick(tick + 1);
               }}
             >
@@ -154,7 +136,7 @@ const MyTickets = props => {
     onRowsDelete: ({ data }) => {
       let ticketsIds = [];
       data.forEach(({ index }) => {
-        ticketsIds = [...ticketsIds, tickets[index].id];
+        ticketsIds = [...ticketsIds, invoiceItemType[index].id];
       });
       const results = ticketsIds.reduce(async (allPromise, tickect) => {
         const allResults = await allPromise;
@@ -169,24 +151,21 @@ const MyTickets = props => {
   const getData = async () => {
     try {
       const params = role !== "admin" ? id : "";
-      const { data: ticks } = await getAllTickets(params);
-      const { data } = await getAllUsers();
-      setTickets(ticks);
-      setUsers(data);
+      const { data } = await getModel("invoiceItemType");
+      setInvoiceItemType(data);
     } catch (error) {
       console.log("error", error);
     }
   };
   useEffect(
     () => {
-      console.log("editCellRow", editCellRow);
       getData();
     },
     [editCellRow, tick]
   );
   return (
     <MUIDataTable
-      title={"Tickets"}
+      title={"Invoice Item Types    "}
       data={data}
       columns={columns}
       options={settings}

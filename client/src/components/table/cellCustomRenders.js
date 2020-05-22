@@ -95,7 +95,7 @@ export const customBodyRender = (render, props) => (value, tableMeta) => {
     if (!oldValue && !newValue) {
       return null;
     }
-    if (oldValue !== newValue && newValue !== "") {
+    if (oldValue !== newValue ) {
       if (userId !== newValue) {
         await edit(ticketId, { [colunm]: newValue });
         setTick(tick + 1);

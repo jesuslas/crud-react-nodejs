@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (models) => {
-  const users = require("../modules/users.module")(models);
+  const users = require("../../modules/auth/users.module")(models);
 
   router.use(bodyParser.json()); // for parsing application/json
   router.use(bodyParser.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded

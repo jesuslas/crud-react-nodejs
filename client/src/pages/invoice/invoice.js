@@ -10,14 +10,14 @@ import {
   renderSelectUser,
   renderSelectTicketName,
   renderSelectStatus
-} from "../components/table/cellCustomRenders";
+} from "../../components/table/cellCustomRenders";
 import {
   addTickets,
   deleteTickets,
   getAllUsers,
   updateTicket,
   getAllTickets
-} from "../service/api.service";
+} from "../../service/api.service";
 
 const MyTickets = props => {
   const {

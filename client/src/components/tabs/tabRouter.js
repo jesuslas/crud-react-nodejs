@@ -6,12 +6,10 @@ import { withRouter } from "react-router-dom";
 import { toLowerCaseAndRemoveSpaces } from "../utils";
 
 function TabsRouter(props) {
-  const { variant, onChange, hasData = true, tabs } = props;
+  const { variant, onChange, hasData = true, tabs, orientation="horizontal" } = props;
 
   const classes = useStyles();
   return (
-    <Grid container justify="center">
-      <Grid item xs={12}>
         <Route>
           {({ location, match }) => {
             const currentLocation = location.pathname;
@@ -33,6 +31,7 @@ function TabsRouter(props) {
                     onChange={onChange}
                     variant={variant}
                     scrollButtons="on"
+                    orientation={orientation}
                   >
                     {tabs.map(({ label, to }, index) => (
                       <Tab
@@ -75,8 +74,6 @@ function TabsRouter(props) {
             );
           }}
         </Route>
-      </Grid>
-    </Grid>
   );
 }
 

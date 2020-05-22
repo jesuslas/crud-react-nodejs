@@ -1,7 +1,10 @@
 module.exports = (sequelize) => {
-  const UserModel = sequelize.import("./db/users.schema");
+  const UserModel = sequelize.import("./db/auth/users.schema");
   const TicketsModel = sequelize.import("./db/tickets.schema");
-  const RoleModel = sequelize.import("./db/role.schema");
+  const RoleModel = sequelize.import("./db/auth/role.schema");
+  const InvoiceItemTypeModel = sequelize.import("./db/invoice/invoiceItemType.schema");
+  const InvoiceModel = sequelize.import("./db/invoice/invoice.schema");
+  const InvoiceItemModel = sequelize.import("./db/invoice/invoiceItem.schema");
 
   UserModel.hasOne(TicketsModel, {
     foreignKey: "userId",
@@ -30,5 +33,8 @@ module.exports = (sequelize) => {
     Role: RoleModel,
     Users: UserModel,
     Tickets: TicketsModel,
+    InvoiceItemType:InvoiceItemTypeModel,
+    Invoice : InvoiceModel,
+    InvoiceItem:InvoiceItemModel
   };
 };
